@@ -9,7 +9,7 @@
 
     function on(id) {
         var request = $.ajax({
-          url: "/on/" + id,
+          url: "/socket/" + id + "/on",
           success: function( result ) {
             console.log(result)
             $( "#relais.status" + id ).html( "<strong><font color=\"green\">AN</font></strong>" );
@@ -19,7 +19,7 @@
 
      function off(id) {
         var request = $.ajax({
-          url: "/off/" + id,
+          url: "/socket/" + id + "/off",
           success: function( result ) {
             console.log(result)
             $( "#relais.status" + id ).html( "<strong><font color=\"red\">AUS</font></strong>" );
@@ -27,24 +27,10 @@
         });
     }
 
-    function getStates() {
-        var request = $.ajax({
-          url: "/state",
-          success: function( result ) {
-            console.log(result)
-            $( "#relais.status0" ).html( "<strong><font color=\"red\">AN</font></strong>" );
-
-
-          }
-        });
-    }
 
 
 </script>
 
-  <script>
-    getStates();
-  </script>
 <meta charset="utf-8" />
 
 </head>
@@ -77,8 +63,7 @@
           <td><div id="relais" class="status3"></div></td>
       </tr>
   </table>
-      <td><input type="button" value="Aktualisieren" onClick="getStates()"></td>
-
+      
 
 
 </body>
