@@ -13,6 +13,13 @@ def socket_off(id):
 	print "Dummy Turn off:",str(id)
 	return 0
 
+def socket_toggle(id):
+	if (socket_states[int(id)] == 0):
+		return socket_on(id)
+	else:
+		return socket_off(id)
+
+
 def get_socket_state(id):
 	return socket_states[int(id)]
 

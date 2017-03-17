@@ -10,18 +10,22 @@ def index():
 	return render_template('index.html')
 
 @app.route("/<type>/<id>/<action>")
-def execute_action(type,id,action):
+def set_state(type,id,action):
 	if type == "socket":
 		if action == "on":
 			return str(ser.socket_on(id))
 		elif action == "off":
 			return str(ser.socket_off(id))
+		elif action == "toggle":
+			return str(ser.socket_toggle(id))
 		else:
 			return "unknown action"
 	else: 
 		return "unknown type"
 
-@app.route("/state")
+
+
+@app.route("/states")
 def states():
 	state = {} # system state
 	

@@ -5,31 +5,11 @@
     <title>Jonnys SmartHome </title>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
+    <script src="/static/script.js"></script>
+
     <script>
-
-    function on(id) {
-        var request = $.ajax({
-          url: "/socket/" + id + "/on",
-          success: function( result ) {
-            console.log(result)
-            $( "#relais.status" + id ).html( "<strong><font color=\"green\">AN</font></strong>" );
-          }
-        });
-    }
-
-     function off(id) {
-        var request = $.ajax({
-          url: "/socket/" + id + "/off",
-          success: function( result ) {
-            console.log(result)
-            $( "#relais.status" + id ).html( "<strong><font color=\"red\">AUS</font></strong>" );
-          }
-        });
-    }
-
-
-
-</script>
+        getstates()
+    </script>
 
 <meta charset="utf-8" />
 
@@ -40,30 +20,33 @@
     <table>
       <tr>
           <td>Steckdose 1</td>
+          <td><input type="button" id="togglebutton0" value="toggle" onClick="toggle(0)"></td>
           <td><input type="button" value="on" onClick="on(0)"></td>
           <td><input type="button" value="off" onClick="off(0)"></td>
-          <td><div id="relais" class="status0"></div></td>
+          <td><div id="relais" class="socket0"></div></td>
       </tr>
       <tr>
         <td>Steckdose 2</td>
+          <td><input type="button" id="togglebutton1" value="toggle" onClick="toggle(1)"></td>
           <td><input type="button" value="on" onClick="on(1)"></td>
           <td><input type="button" value="off" onClick="off(1)"></td>
-          <td><div id="relais" class="status1"></div></td>
+          <td><div id="relais" class="socket1"></div></td>
       </tr>
       <tr>
         <td>Steckdose 3</td>
+          <td><input type="button" id="togglebutton2" value="toggle" onClick="toggle(2)"></td>
           <td><input type="button" value="on" onClick="on(2)"></td>
           <td><input type="button" value="off" onClick="off(2)"></td>
-          <td><div id="relais" class="status2"></div></td>
+          <td><div id="relais" class="socket2"></div></td>
       </tr>
       <tr>
         <td>Steckdose 4</td>
+          <td><input type="button" id="togglebutton3" value="toggle" onClick="toggle(3)"></td>
           <td><input type="button" value="on" onClick="on(3)"></td>
           <td><input type="button" value="off" onClick="off(3)"></td>
-          <td><div id="relais" class="status3"></div></td>
+          <td><div id="relais" class="socket3"></div></td>
       </tr>
   </table>
-      
 
 
 </body>
