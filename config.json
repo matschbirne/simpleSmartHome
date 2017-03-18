@@ -1,0 +1,20 @@
+{
+  "sockets": [
+    {
+      "id": "0", 
+      "name": "Fernseher"
+    }, 
+    {
+      "id": "1", 
+      "name": "Weihnachtsbaum"
+    }, 
+    {
+      "id": "2", 
+      "state": "Toilettenspülung"
+    }, 
+    {
+      "id": "3", 
+      "state": "kaffeemaschine"
+    }
+  ]
+}

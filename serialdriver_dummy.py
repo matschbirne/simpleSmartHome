@@ -19,9 +19,5 @@ def socket_toggle(id):
 	else:
 		return socket_off(id)
 
-
-def get_socket_state(id):
+def socket_get_state(id):
 	return socket_states[int(id)]
-
-def get_all_socket_states():
-	return socket_states

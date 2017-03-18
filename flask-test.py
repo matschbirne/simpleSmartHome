@@ -1,8 +1,14 @@
 from flask import Flask, render_template, jsonify, request
 import time
 import serialdriver_dummy as ser
+import sys
+import json
 
 app = Flask(__name__)
+configfilename = sys.argv[1]
+configfile = open(configfilename,'r')
+config = json.loads(configfile.read())
+print config
 
 # web functions
 @app.route("/")
@@ -11,18 +17,23 @@ def index():
 
 @app.route("/<type>/<id>/<action>")
 def set_state(type,id,action):
+	result = {}
+	result["is_success"] = "true"
+	result["id"] = str(id)
 	if type == "socket":
 		if action == "on":
-			return str(ser.socket_on(id))
+			result["state"] = str(ser.socket_on(id))
 		elif action == "off":
-			return str(ser.socket_off(id))
+			result["state"] = str(ser.socket_off(id))
 		elif action == "toggle":
-			return str(ser.socket_toggle(id))
-		else:
-			return "unknown action"
-	else: 
-		return "unknown type"
-
+			result["state"] = str(ser.socket_toggle(id))
+		elif action == "get":
+			result["state"] = str(ser.socket_get_state(id))
+		else: # unknown action
+			result["is_success"] = "false"
+	else: # unknown type
+		result["is_success"] = "false"
+	return jsonify(result)
 
 
 @app.route("/states")
@@ -32,15 +43,15 @@ def states():
 	# sum up socket information
 	socket_states = []
 	id = 0
-	for s in ser.get_all_socket_states():
+	for s in config["sockets"]:
 		curr_state = {}
-		curr_state["id"] = str(id)
-		curr_state["state"] = str(s)
+		curr_state["id"] = str(s["id"])
+		curr_state["state"] = str(ser.socket_get_state(s["id"]))
 		socket_states.append(curr_state)
 		id += 1
 
 	state["sockets"] = socket_states
-	return jsonify(state)#render_template('states.html',s0=states[0],s1=states[1],s2=states[2],s3=states[3])
+	return jsonify(state)
 
 
 if __name__ == "__main__":
