@@ -84,13 +84,41 @@ header h1{
 	margin:5px;
 	padding: 5px;
 	text-align: center;
+	max-width: 300px;
+	margin-right: auto;
+	margin-left: auto;
+	transition: height 3s;
+}
+
+.switchElement input{
+	visibility:hidden;
+}
+
+.switchElement:hover input{
+	visibility:visible;
 }
 
 
-
-@media only screen and (min-width: 1021px){
-.switchElement, .futureElement, .fakeElement{
+@media only screen and (min-width: 951px) { 
+.element{
 	padding: 15px;
 }
+
+#reload::after{
+  content: "Reload";
 }
+
+#allOff::after{
+  content: "All Switches Off";
+}
+
+#foo::after{
+  content: "Foooooooo";
+}
+
+footer ul li div::after{
+  padding: 20px;
+}
+}
+
 
