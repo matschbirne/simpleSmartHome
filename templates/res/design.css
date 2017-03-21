@@ -1,0 +1,96 @@
+/* Idee: Footer: Icons, wenn kleiner als.... Sonst mit ::before Text davor?;*/
+
+
+*{
+	padding:0;
+	margin: 0;
+	font-family: sans-serif;
+}
+footer ul li{
+/*## */
+	list-style: none;
+	text-align: center;
+	background: darkorange;
+	
+	/*vertical-align: middle;*/
+}
+
+footer ul li div{
+	border: 1px solid khaki;
+	border-radius: 4px;
+	display: inline-block;
+	margin: 5px;
+}
+
+footer ul li div:hover{
+	background: khaki;
+}
+	
+footer{
+	position:fixed;
+	bottom:0;
+	display:block;
+	width: 100vw;
+
+	
+}
+
+
+
+#footerTrigger{
+	display: inline-block;
+	background: darkorange;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	margin-left: 5px;
+	padding: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+	font-size: 15px
+}
+
+
+header{
+background: darkorange;
+margin: 0;
+}
+
+header h1{
+	margin: 5px;
+	
+	font-size: 25px;
+}
+
+.present{
+	display: block;
+}
+
+.absent{
+	display: none;
+}
+
+.icon{
+	width: 40px;
+	height: 40px;
+	border-radius: 4px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.element{
+	border: 1px solid darkorange;
+	background: khaki;
+	border-radius: 3px;
+	margin:5px;
+	padding: 5px;
+	text-align: center;
+}
+
+
+
+@media only screen and (min-width: 1021px){
+.switchElement, .futureElement, .fakeElement{
+	padding: 15px;
+}
+}
+

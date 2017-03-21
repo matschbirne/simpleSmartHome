@@ -1,52 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href='/static/style.css' />
-    <title>Jonnys SmartHome </title>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <title>Jonnys SmartHome </title>
+  <meta name="author" content="Jonny und Jonny">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href='res/responsive.css' />
+  <meta charset="utf8" />
+    <link rel="stylesheet" href='res/design.css' />
 
-    <script src="/static/script.js"></script>
 
-    <script>
-        getstates()
-    </script>
-
-<meta charset="utf-8" />
-
+  <script src="res/jquery3.js"></script>
+ 
 </head>
 <body>
+  <div class="row">
+  <header>
+    <h1>SmartHome</h1>
+  </header>
+</div>
+<div class="row">
+  <main>
+    <!-- Hier vielleicht tolle Ladeanimation? -->
+    <div id="loading">Lade</div>
+    <div style="display:none;" id="switches" class="col-4 col-m-12"></div>
+    <div style="display:none;"  id="futureTest" class="col-4 col-m-12"></div>
+    <div style="display:none;"  id="fakeElements" class="col-4 col-m-12 empty"></div>
+    <div style="clear:left"><br><br><br><br></div>
+</main></div>
 
-  <h2>SmartHome</h2>
-    <table>
-      <tr>
-          <td>Steckdose 1</td>
-          <td><input type="button" id="togglebutton0" value="toggle" onClick="toggle(0)"></td>
-          <td><input type="button" value="on" onClick="on(0)"></td>
-          <td><input type="button" value="off" onClick="off(0)"></td>
-          <td><div id="relais" class="socket0"></div></td>
-      </tr>
-      <tr>
-        <td>Steckdose 2</td>
-          <td><input type="button" id="togglebutton1" value="toggle" onClick="toggle(1)"></td>
-          <td><input type="button" value="on" onClick="on(1)"></td>
-          <td><input type="button" value="off" onClick="off(1)"></td>
-          <td><div id="relais" class="socket1"></div></td>
-      </tr>
-      <tr>
-        <td>Steckdose 3</td>
-          <td><input type="button" id="togglebutton2" value="toggle" onClick="toggle(2)"></td>
-          <td><input type="button" value="on" onClick="on(2)"></td>
-          <td><input type="button" value="off" onClick="off(2)"></td>
-          <td><div id="relais" class="socket2"></div></td>
-      </tr>
-      <tr>
-        <td>Steckdose 4</td>
-          <td><input type="button" id="togglebutton3" value="toggle" onClick="toggle(3)"></td>
-          <td><input type="button" value="on" onClick="on(3)"></td>
-          <td><input type="button" value="off" onClick="off(3)"></td>
-          <td><div id="relais" class="socket3"></div></td>
-      </tr>
-  </table>
+<div class="row">
+<footer>
+    <div id="footerTrigger" >Funktionen</div>
+    <div id="footerContent" class="absent">
+    <ul>
+      <!-- Idee für Funktion: mehrere Schalter auf einmal betätigen, dann erst senden? Sinnlos, weil es eh fast in Echtzeit geht? Eventuell sinnvoll, wenn Änderungen wirklich gleichzeitig geschehen soll? Oder soll grundsätzlich sowieso immer nur ein Element geändert werden können? Dann Benutzung von JSOn als Tauschformat überflüssig und lieber über verschiedene URLS steuern?-->
+      <li class="col-m-3"><div id="reload"><img class="icon" src="res/01.png" /></div></li>
+      <li class="col-m-3"><div id="allOff"><img class="icon" src="res/02.png" /></div></li>
+      <li class="col-m-3"> <div id="foo" ><img class="icon" src="res/03.png" /></div></li>
+      <li class="col-m-3"><div id="foo" ><img class="icon" src="res/04.png" /></div></li>
+    </ul>
+  </div>
+  </footer></div>
+  <script>
 
-
+  </script>
+  <script src="res/designfunctions.js"></script>
+  <script src="res/handleData.js"></script>
 </body>
+</html>

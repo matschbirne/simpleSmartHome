@@ -1,0 +1,56 @@
+Vorgehen:
+
+- Wichtig:
+	* Responsive
+	* Client-Logik:
+		#CSS/jQuery für Bedienung/Ansicht
+		#Einlesen der Daten / Aufbau der Seite
+		#Plan: Ablauf Datenaktualieserung/Update der View
+
+- Weniger Wichtig:
+	*Aussehen/Ästhetik
+
+ToDo
+____
+* alles, was mit  testData gemacht wird, durch einen Ajax-Request ersetzen
+* Welche Sonderfunktionen (footer) ? 
+
+
+
+
+
+1. Initiales Laden -- FERTIG
+__________________
+* Lade "leere Seite"/Template
+* Anfrage auf GET "/states" --> Objekt mit allen zu bedienenden Elementen / Typen + Status
+* Aufbau der Seite mit Hilfe der Infos
+
+2. Änderung eines Status
+________________________
+* Anfrage auf POST "/states/<id>/<state>" (bei neuen Typen eventuell andere Punkte) (Client)
+* serielle Schnittstelle bedienen (Server)
+* ausstehende Anfragen Triggern (Server)
+* Server antwortet mit Objekt mit neuem Zustand, z.B. {id: "steckdose01", isOn: true;}
+* neuen Hash berechnen (Server und Client)
+
+
+
+3. Aktualieserung der Daten
+___________________________
+* Anfrage auf GET "/states/<hash>". Hash codiert aktuelle Belegung im Client. Antwort je nach Fall:
+	- HASH STIMMT NICHT MIT HASH AUF SERVER
+		Antwort --> 2?? und Objekt mit allen veränderten Typen
+	- HASH STIMMT ÜBEREIN
+		* Sorge dafür, dass automatisch nach Timeout (15s?) eine 200 gesendet wird, wenn sich nichts verändert
+		Antwort --> 200
+		* Wenn ausstehende Anfragen getriggert wird:
+		Antwort --> 2?? und Objekt mit allen veränderten Typen
+* Wenn Antwort 2?? (neue Daten): Aktualisieren
+* immer: neue Anfrage senden
+
+
+
+
+* Hilfsfunktion: 
+	#statesAsJsonFromHash? 
+	
