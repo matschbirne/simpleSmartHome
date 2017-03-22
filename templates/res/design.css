@@ -2,6 +2,18 @@
 	font-family: sans-serif;
 	  	padding:0;
 	margin: 0;
+
+}
+body{
+
+}
+
+hr{
+	background: darkorange;
+	color: darkorange;
+	height: 4px;
+	margin: 15px;
+
 }
 footer ul li{
 	list-style: none;
@@ -45,13 +57,23 @@ footer{
 
 
 header{
-background: darkorange;
-margin: 0;
+background: khaki;
+margin-left: 5px;
+margin-right: 5px;
+margin-bottom: 15px;
+
+border-bottom-right-radius: 15px;
+border-bottom-left-radius: 15px;
+border-bottom: 3px solid darkorange;
+border-left: 3px solid darkorange;
+border-right: 3px solid darkorange;
 }
 
 header h1{
-	margin: 5px;
-	
+	padding: 5px;
+	text-align: center;
+	color: darkorange;
+	letter-spacing: 2vw;
 	font-size: 25px;
 }
 
@@ -75,23 +97,109 @@ header h1{
 	border: 1px solid darkorange;
 	background: khaki;
 	border-radius: 3px;
-
-	text-align: center;
+position: relative;
+	/*text-align: center;*/
+	/*padding-right: 0px;*/
 	max-width: 650px;
-	margin: 10px;
+	min-height: 60px;
+	margin: 5px;
+	padding: 10px;
+}
+
+.switchElement h3{
+position: absolute;
+top: 10px;
+left: 10px;
+
 }
 
 .switchElement input{
+	/*position: absolute;*/
+	float: right;
 	visibility:hidden;
+	margin-left: 5px;
+padding: 7px;
+padding-left: 15px;
+padding-right: 15px;
+	border: 0px;
+	border-radius: 5px;
+
+		color: white;
+}
+
+
+.switchElement input[value="on"]{
+	background: green;
+}
+
+.switchElement input[value="off"]{
+	background: red;
+}
+
+.switchElement input[value="toggle"]{
+	background: darkorange;
 }
 
 .switchElement:hover input{
 	visibility:visible;
+
+}
+
+.switchElement:hover .onLabel, .switchElement:hover .offLabel{
+	display: none;
 }
 
 
+.on{
+	border: 2px solid #00cc00;
+	background: #88ff88;
+}
+
+.off{
+	border: 2px solid #ee0000;
+	background: #ff8888;
+}
+
+.on:hover{
+	border: 2px solid #006600;
+	background: #22bb22;
+}
+
+.off:hover{
+	border: 2px solid #cc0000;
+	background: #ff4444;
+	
+}
+
+.offLabel, .onLabel{
+	font-size: 2.5em;
+	line-height: 1em;
+	letter-spacing: 5px;
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	opacity: 0.3;
 
 
+}
 
+.offLabel{
+	color: red;
+}
 
+.onLabel{
+	color: green;
+}
+
+.on .onLabel, .off .offLabel{
+	display: inline-block;
+}
+
+.off .onLabel, .on .offLabel{
+	display: none;
+}
+
+.switchButtons{
+	position: relative;
+}
 
