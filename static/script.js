@@ -67,3 +67,20 @@ function getinfo() {
       }
     });
 }
+
+function getinfo() {
+    var request = $.ajax({
+      url: "/info",
+      success: function( result ) {
+        console.log(result);
+
+        var sortedKeys = Object.keys(result).sort();
+
+        var i;
+        for (i = 0; i < sortedKeys.length; i++) {
+            document.getElementById("name_" + sortedKeys[i]).innerHTML = result[sortedKeys[i]].name;
+        }
+      
+      }
+    });
+}
