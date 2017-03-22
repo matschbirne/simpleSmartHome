@@ -77,34 +77,6 @@
 
     function buildPagefromData(){
 	var element, newEl;
-	//Verbessern. Weniger Code? Code auslagern?
-		// for(var index in localStates.binarySwitch){
-		// 	var element = localStates.binarySwitch[index]
-		// 	newEl="<div id='"+element.id+"' class='switchElement'>"
-		// 			+"<h3>"+element.label+"</h3>"
-		// 			+"<span class='switchLabel' >"+((element.isOn)?"On":"Off")+"</span>"
-		// 			+"<input onclick='on(\""+element.id+"\")' type='button' value='on'/><input onclick='off(\""+element.id+"\")'  type='button' value='off'/>"
-		// 			+"</div>";
-		// 	$("#switches").append(newEl);
-		// };
-
-
-		// for(var index in localStates.futureTest){
-		// 	var element = localStates.futureTest[index]
-		// 	newEl="<div id='"+element.id+"' class='futureElement'>"
-		// 			+"<h3>"+element.label+"</h3>"
-		// 			+"<div class='switch' >"+element.value+"</div></div>";
-		// 	$("#futureTest").append(newEl);
-		// }
-
-		// for(var i=1; i<7; i++){
-			
-		// 	newEl="<div id='"+element.id+"' class='fakeElement'>"
-		// 			+"<h3>Troll "+i+"</h3>"
-		// 			+"Hahahah, verarscht.....";
-		// 	$("#fakeElements").append(newEl);
-		// }
-
 		for(var index in localStates){
 			var element = localStates[index];
 			switch(element.type){
@@ -112,31 +84,15 @@
 				case "num": addFutureTest(element); break;
 				default: break;
 			}
-			// if(element.type=="steckdose"){
-			// 	newEl="<div id='steckdose"+element.id+"' class='switchElement'>"
-			// 	+"<h3>"+element.label+"</h3>"
-			// 	+"<span class='switchLabel' >"+((element.isOn)?"On":"Off")+"</span>"
-			// 	+"<input onclick='on(\"steckdose"+element.id+"\")' type='button' value='on'/><input onclick='off(\"steckdose"+element.id+"\")'  type='button' value='off'/>"
-			// 	+"</div>";
-			// 	alert(newEl);
-			// 	$("#switches").append(newEl);
-			// }
-			// else if(element.type=="num"){
-
-			// 	newEl="<div id='num"+element.id+"' class='futureElement'>"
-			// 	+"<h3>"+element.label+"</h3>"
-			// 	+"<div class='switch' >"+element.value+"</div></div>";
-			// 	$("#futureTest").append(newEl);
-			// }
 		}
 
-		for(var i=1; i<7; i++){
+
 			
-			newEl="<div id='"+element.id+"' class='element fakeElement'>"
-			+"<h3>Troll "+i+"</h3>"
-			+"Hahahah, verarscht.....";
-			$("#fakeElements").append(newEl);
-		}
+			$("#fakeElements").append("<div id='rightPanel' class='element panel'>"
+			+"<h3>Informationen </h3>"
+			+"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata </div>");
+			
+		
 
 		$("#switches, #fakeElements, #futureTest").show();
 		$("#loading").hide();

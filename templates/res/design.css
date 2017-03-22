@@ -1,18 +1,12 @@
-/* Idee: Footer: Icons, wenn kleiner als.... Sonst mit ::before Text davor?;*/
-
-
 *{
-	padding:0;
-	margin: 0;
 	font-family: sans-serif;
+	  	padding:0;
+	margin: 0;
 }
 footer ul li{
-/*## */
 	list-style: none;
 	text-align: center;
 	background: darkorange;
-	
-	/*vertical-align: middle;*/
 }
 
 footer ul li div{
@@ -81,13 +75,10 @@ header h1{
 	border: 1px solid darkorange;
 	background: khaki;
 	border-radius: 3px;
-	margin:5px;
-	padding: 5px;
+
 	text-align: center;
-	max-width: 300px;
-	margin-right: auto;
-	margin-left: auto;
-	transition: height 3s;
+	max-width: 650px;
+	margin: 10px;
 }
 
 .switchElement input{
@@ -99,26 +90,8 @@ header h1{
 }
 
 
-@media only screen and (min-width: 951px) { 
-.element{
-	padding: 15px;
-}
 
-#reload::after{
-  content: "Reload";
-}
 
-#allOff::after{
-  content: "All Switches Off";
-}
 
-#foo::after{
-  content: "Foooooooo";
-}
-
-footer ul li div::after{
-  padding: 20px;
-}
-}
 
 
