@@ -3,21 +3,21 @@ NUM_CHANELS = 4
 socket_states = [0,0,0,0]
 
 # serial functions
-def socket_on(id):
-	socket_states[int(id)] = 1
-	print "Dummy Turn on:",str(id)
+def socket_on(addr):
+	socket_states[int(addr)] = 1
+	print "Dummy Turn on:",str(addr)
 	return 1
 	
-def socket_off(id):
-	socket_states[int(id)] = 0
-	print "Dummy Turn off:",str(id)
+def socket_off(addr):
+	socket_states[int(addr)] = 0
+	print "Dummy Turn off:",str(addr)
 	return 0
 
-def socket_toggle(id):
-	if (socket_states[int(id)] == 0):
-		return socket_on(id)
+def socket_toggle(addr):
+	if (socket_states[int(addr)] == 0):
+		return socket_on(addr)
 	else:
-		return socket_off(id)
+		return socket_off(addr)
 
-def socket_get_state(id):
-	return socket_states[int(id)]
+def socket_get_state(addr):
+	return socket_states[int(addr)]

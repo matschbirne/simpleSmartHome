@@ -34,23 +34,36 @@ function getstates() {
       success: function( result ) {
         console.log(result);
 
+        var sortedKeys = Object.keys(result).sort();
+
         var i;
-        var text = "";
-
-        for (i = 0; i < 4; i++) {
-          if (result.sockets[i].state == "1") {
-            $( "#relais.socket" + i ).html( "<strong><font color=\"green\">AN</font></strong>" );
-            document.getElementById("togglebutton" + i).value = "AUSSCHALTEN";
+        for (i = 0; i < sortedKeys.length; i++) {
+          if (result[sortedKeys[i]] == "1") {
+            document.getElementById("statustext_" + sortedKeys[i]).innerHTML = "<strong><font color=\"green\">AN</font></strong>"
+            document.getElementById("togglebutton_" + sortedKeys[i]).value = "ausschalten"
           } else {
-            $( "#relais.socket" + i ).html( "<strong><font color=\"red\"> AUS</font></strong>" );
-            document.getElementById("togglebutton" + i).value = "EINSCHALTEN";
-
+            document.getElementById("statustext_" + sortedKeys[i]).innerHTML = "<strong><font color=\"red\">AUS</font></strong>";
+            document.getElementById("togglebutton_" + sortedKeys[i]).value = "einschalten"
           }
-          text += result.sockets[i].state;
-
         }
-        document.getElementById("demo").innerHTML = text;
+      
+      }
+    });
+}
 
+function getinfo() {
+    var request = $.ajax({
+      url: "/info",
+      success: function( result ) {
+        console.log(result);
+
+        var sortedKeys = Object.keys(result).sort();
+
+        var i;
+        for (i = 0; i < sortedKeys.length; i++) {
+            document.getElementById("name_" + sortedKeys[i]).innerHTML = result[sortedKeys[i]].name;
+        }
+      
       }
     });
 }

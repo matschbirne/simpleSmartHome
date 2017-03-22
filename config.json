@@ -1,20 +1,23 @@
 {
-  "sockets": [
-    {
-      "id": "0", 
-      "name": "Fernseher"
-    }, 
-    {
-      "id": "1", 
-      "name": "Weihnachtsbaum"
-    }, 
-    {
-      "id": "2", 
-      "state": "Toilettenspülung"
-    }, 
-    {
-      "id": "3", 
-      "state": "kaffeemaschine"
-    }
-  ]
+  "socket0": {
+    "type": "socket",
+    "addr": "0", 
+    "name": "Fernseher"
+  }, 
+
+  "socket1": {
+    "type": "socket",
+    "addr": "1", 
+    "name": "Weihnachtsbaum"
+  }, 
+  "socket2": { 
+    "type": "socket",
+    "addr": "2", 
+    "name": "Toilettenspülung"
+  }, 
+  "socket3": {
+    "type": "socket",
+    "addr": "3", 
+    "name": "Kaffeemaschine"
+  }
 }
