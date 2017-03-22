@@ -15,12 +15,14 @@ hr{
 	margin: 15px;
 
 }
+
+
 footer ul li{
 	list-style: none;
 	text-align: center;
 	background: darkorange;
-}
 
+}
 footer ul li div{
 	border: 1px solid khaki;
 	border-radius: 4px;

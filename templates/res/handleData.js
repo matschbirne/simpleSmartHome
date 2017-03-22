@@ -31,6 +31,7 @@
 
 	$( document ).ready(function(){
 		getDataAndBuild();
+        $("#footerTrigger").click(function(){$("#footerContent").toggleClass("present absent");});
 
 	});
 
@@ -116,7 +117,7 @@
     	if(options.method=="GET" && options.url=="/states"){
     		setTimeout(function(){
     			options.success(testData2);
-    		}, 100);
+    		}, 500);
     	}
 
     	if(options.method=="GET" && options.url.includes("/socket")){
