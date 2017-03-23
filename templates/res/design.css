@@ -108,14 +108,14 @@ position: relative;
 	padding: 10px;
 }
 
-.switchElement h3{
+.socketElement h3{
 position: absolute;
 top: 10px;
 left: 10px;
 
 }
 
-.switchElement input{
+.socketElement input{
 	/*position: absolute;*/
 	float: right;
 	visibility:hidden;
@@ -130,24 +130,24 @@ padding-right: 15px;
 }
 
 
-.switchElement input[value="on"]{
+.socketElement input[value="on"]{
 	background: green;
 }
 
-.switchElement input[value="off"]{
+.socketElement input[value="off"]{
 	background: red;
 }
 
-.switchElement input[value="toggle"]{
+.socketElement input[value="toggle"]{
 	background: darkorange;
 }
 
-.switchElement:hover input{
+.socketElement:hover input{
 	visibility:visible;
 
 }
 
-.switchElement:hover .onLabel, .switchElement:hover .offLabel{
+.socketElement:hover .onLabel, .socketElement:hover .offLabel{
 	display: none;
 }
 
@@ -201,7 +201,7 @@ padding-right: 15px;
 	display: none;
 }
 
-.switchButtons{
+.socketControls{
 	position: relative;
 }
 
@@ -265,7 +265,7 @@ content: "Reload";
 }
 
 #allOff::after{
-content: "All Switches Off";
+content: "All Sockets Off";
 }
 
 #foo::after{

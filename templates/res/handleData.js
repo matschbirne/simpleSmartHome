@@ -1,117 +1,153 @@
- 	//Todo: Typen ändern in type und id statt nur id? z.B. type="steckdose" id="01". Dann Gruppen überflüssig?
-
- 	var testData = {
-		binarySwitch:[
-		{id: "steckdose01", label: "Steckdose 1", isOn: true},
-		{id: "steckdose02", label: "Steckdose 2", isOn: false},
-		{id: "steckdose03", label: "Steckdose 3", isOn: true}],
-
-		futureTest:[
-		{id: "num01", label: "Nummerfeld 1", value: 5},
-		{id: "num02", label: "Nummerfeld 2", value: 1},
-		{id: "num03", label: "Nummerfeld 3", value: 4}]
-	};
-
 	var testData2 =[
-		{type: "steckdose", id: "01", label: "Bad Spiegel", isOn: true},
-		{type: "steckdose", id: "02", label: "Bad Boden", isOn: false},
-		{type: "steckdose", id: "03", label: "Wohnzimmer Couch", isOn: true},
-                {type: "steckdose", id: "04", label: "Wohnzimmer Tür", isOn: false},
-        {type: "steckdose", id: "05", label: "Schlafzimmer Bett", isOn: false},
-        {type: "steckdose", id: "06", label: "Schlafzimmer Fenster", isOn: true},
-                {type: "steckdose", id: "07", label: "Schlafzimmer Heizung", isOn: false},
-        {type: "steckdose", id: "08", label: "Küche", isOn: true},
-        {type: "steckdose", id: "09", label: "Balkon", isOn: true},
-		{type: "num", id: "01", label: "Nummerfeld 1", value: 5},
-		{type: "num", id: "02", label: "Nummerfeld 2", value: 1},
-		{type: "num", id: "03", label: "Nummerfeld 3", value: 4}];
+  {type: "socket", id: "01", label: "Bad Spiegel", isOn: "on"},
+  {type: "socket", id: "02", label: "Bad Boden", isOn: "off"},
+  {type: "socket", id: "03", label: "Wohnzimmer Couch", isOn: "on"},
+  {type: "socket", id: "04", label: "Wohnzimmer Tür", isOn: "off"},
+  {type: "socket", id: "05", label: "Schlafzimmer Bett", isOn: "off"},
+  {type: "num", id: "01", label: "Nummerfeld 1", value: 5},
+  {type: "num", id: "02", label: "Nummerfeld 2", value: 1},
+  {type: "test", id: "01", label: "Hello World", max: 100, value: 50},
+    {type: "test", id: "02", label: "Hello World", max: 75, value: 55},
+      {type: "test", id: "03", label: "Hello World", max: 200, value: 35}
+];
 
-	//Das ist der Zustände (beim Client) aller Elemente 
-	//var localStates = {};
+$( document ).ready(function(){
+  getDataAndBuild();
+  $("#footerTrigger").click(function(){$("#footerContent").toggleClass("present absent");});
 
-	$( document ).ready(function(){
-		getDataAndBuild();
-        $("#footerTrigger").click(function(){$("#footerContent").toggleClass("present absent");});
+});
 
-	});
+//Turns Socket on
+function on(id) {  changeSocket(id, true);  }
 
-//Turns Switches on
-    function on(id) {
-     	 //TODO: Parameter entfernen? mit $(this) arbeiten?
-    	changeSwitch(id, true);
-}
-    
-//Turns switches off
-     function off(id) {
-        //alert("off "+id);
-     	 //TODO: Parameter entfernen? mit $(this) arbeiten?
-     	 changeSwitch(id, false);
-    }
+//Turns sockets off
+function off(id) {  changeSocket(id, false);  }
 
-    function changeSwitch(id, on){
-    	//TODO: verallgemeinern? Für mehrere Objekte gleichzeitig? Oder Paradigma, dass immer nur eins bedient wird? Wenigstens verallgemeiern, dass auch für andere Arten von Elementen benutzbar?
+function toggle(id){  changeSocket(id, $("#socket"+id).hasClass("off"));  }
 
-
-
-    	fakeAjax({
-           url: "/socket/"+id+"/"+((on)?"on":"off"),
-           method: "GET", 
-           success: function( result ) {
-           //TODO
-           //Eventuell: JSON parsen oder auto detection? Änderung in localStates speichern
+function changeSocket(id, on){
+    fakeAjax({
+       url: "/socket/"+id+"/"+((on)?"on":"off"),
+       method: "GET", 
+       success: function( result ) {
+           //TODO Eventuell: JSON parsen oder auto detection?
+           console.log(result.url);
            if(result.type=="socket"){
             var newState = (result.isOn)?"on":"off";
             var notNewState = (result.isOn)?"off":"on";
-            $("#steckdose"+result.id).addClass(newState).removeClass(notNewState);
+            $("#socket"+result.id).addClass(newState).removeClass(notNewState);
 
-           //$("#steckdose"+result.id+" .switchLabel").text();
-
-       }
-   }
+        }
+    }
 });}
 
-        function toggle(id){
-        changeSwitch(id, $("#steckdose"+id).hasClass("off"));
+
+
+//ToDO: Erinnerung Idee: regelmäßig nur Hash senden. Wenn eine 200 (==gleicher Hash auf Server) zurück kommt, tue nichts. Falls z.B. 201 zurück kommt, rufe einmal getData And Build auf. Wie hash bilden? Ich speichere die Zustände im Moment nicht in einem Array, sondern setze Änderung stets im FrontEnd um. Wann muss der Hash immer berechnet werden? Eine Funktion vor dem Ajaxaufruf aufrufen, Optionenobjekt nur durchreichen? Bzw. success-Funktion überschreiben und dort Hash vorschalten? 
+function getDataAndBuild(){
+ fakeAjax({
+  url: "/states",
+  method: "GET",
+  success: function( result ){  buildPagefromData(result);  }
+})
+}
+//In Case of New (type) ICON: neuen Case hinzufügen  
+function buildPagefromData(localStates){
+    var element, newEl;
+    for(var index in localStates){
+        var element = localStates[index];
+        switch(element.type){
+            case "socket":  
+            element.contentBefore = "<h1 class='onLabel'>On</h1><h1 class='offLabel'>Off</h1>";
+            element.controlsParsed = "<input onclick='toggle(\"@1>id<1@\")'  type='button' value='toggle'/>"
+            +"<input onclick='off(\"@2>id<2@\")'  type='button' value='off'/>"
+            +"<input onclick='on(\"@3>id<3@\")' type='button' value='on'/>";
+            break;
+            case "num": 
+            element.contentParsed = "This is my @1>value<1@. Sparta!";
+            break;
+            case "test":
+            element.percentage = Math.round(100*element.value/element.max);
+            element.red = 100 - element.percentage;
+
+            //alert(element.percentage);
+            element.blue = Math.round(6*element.percentage/10);            
+            element.green = Math.round(8*element.percentage/10);
+            //alert(element.red.toString());
+
+            element.contentParsed = "<p style='float: right'>@1>max<1@</p><div style='height: 50px; width: @2>percentage<2@%; background: rgb(@3>red<3@%,@4>green<4@%, @5>blue<5@%); text-align: right'>@6>value<6@</div>";
+            break;
+            default: break;
         }
-
-
-//ToDO: Erinnerung Idee: regelmäßig nur Hash senden. Wenn eine 200 (==gleicher Hash auf Server) zurück kommt, tue nichts. Falls z.B. 201 zurück kommt, rufe einmal getData And Build auf.
-    function getDataAndBuild(){
-    	fakeAjax({
-    		url: "/states",
-    		method: "GET",
-    		success: function( result ){
-    			//localStates = result;
-    			//updateHash();
-    			buildPagefromData(result);
-    		}
-    	})
+        addElement(element.type, element);
     }
-    //In Case of New (type) ICON: neuen Case hinzufügen  
-    function buildPagefromData(localStates){
-	var element, newEl;
-		for(var index in localStates){
-			var element = localStates[index];
-			switch(element.type){
-				case "steckdose": addSteckdose(element); break;
-				case "num": addFutureTest(element); break;
-				default: break;
-			}
-		}
+       //In Case of New (type) ICON: Trennlinie, anzeigen.
+        $("#sockets, #nums, #tests").append("<hr noshade>").show();
+        //$("#sockets, #nums, #tests").show();
+        $("#loading").hide();
+}
+
+/*
+@param:   type: socket, num, 
+            element:{
+                id
+                type
+                label
+            opt     contentBefore (HTML)
+            opt     isOn (Text "on" oder "off")
+            opt     contentParsed
+            opt     controlsParsed
+                            
+            }
+            */
+            function addElement(type,element){
+                var newEl=  "<div id='"+type+element.id+"' class='element "+type+"Element "
+                +optional(element.isOn)+"'>\n";
+
+                newEl += optional(element.contentBefore);
+                newEl += "\t<h3>"+element.label+"</h3>\n";
+                newEl += "\t<div class='"+type+"Content'>\n\t"+parseElement(element, optional(element.contentParsed))+"</div>\n";
+                newEl += "\t<div class='"+type+"Controls'>\n\t"+parseElement(element, optional(element.controlsParsed))+"</div>\n"; 
+                newEl += "</div>";
+                console.log(newEl);
+                $("#"+type+"s").append(newEl);
+            }
 
 
+            function optional(str){
+                return (str?str:"");
+            }
+
+            function parseElement(element, parsed){
+                var str = "",
+                temp;
+
+                if(parsed && typeof parsed == "string"){
+                    str = "";
+                    var varCount = (parsed.split("@").length-1)/2;
+                    for(var i=1; i<=varCount ; i++){
+                        temp = parsed.split("@"+i+">");
+                        str+=temp[0];
+                        parsed = temp[1];
+                        temp = parsed.split("<"+i+"@");
+                        str += element[temp[0]];
+                        parsed = temp[1];
+
+                    }
+                    str += parsed;
+                }
+
+                return str;
+
+            }
+
+/*
 
 
-			
-			$("#fakeElements").append("<div id='rightPanel' class='element panel'>"
-			+"<h3>Informationen </h3>"
-			+"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata </div>");
-		
-        //In Case of New (type) ICON: Trennlinie, anzeigen.
-		$("#switches, #futureTest").append("<hr noshade>");
-		$("#switches, #fakeElements, #futureTest").show();
-		$("#loading").hide();
-	}
+        TODO: alle Aufrufe von fakeAjax durch richtige ersetzen, testen. Regelmäßige Abfrage über Hash. Eventuell eigenen Ajax-Request abstrahieren. Siehe obenn
+
+
+*/
 
     function fakeAjax(options){
     	if(options.method=="GET" && options.url=="/states"){
@@ -123,7 +159,7 @@
     	if(options.method=="GET" && options.url.includes("/socket")){
     		setTimeout(function(){
                // alert("hi");
-                var opt = options.url.split("/");
+               var opt = options.url.split("/");
                 //alert(options.url.split("/").toString());
                 var test = "";
                 for(var i in opt){
@@ -138,38 +174,8 @@
                     isOn: istan 
                 };
                     //alert(res.toString());
-
-               options.success(res);
-    	//var element = JSON.parse(options.body);
-    	//var url = options.method + " " + options.url;
-    	//options.success(element);
-    	}, 100)
+                    res.url = options.url;
+                    options.success(res);
+                }, 300);
+        }
     }
-
-    }
-
-
-//TODO: Verallgemeinern: statt je eine Funktion für jeden Typen soll eine Funktion mit Steuerung durch Parameter
-function addSteckdose(element){
-var newEl="<div id='steckdose"+element.id+"' class='element switchElement "+((element.isOn)?"on":"off")+"'>"
-				+"<h3>"+element.label+"</h3>"
-                +"<h1 class='onLabel'>On</h1><h1 class='offLabel'>Off</h1>"
-				+"<div class='switchButtons'><input onclick='toggle(\""+element.id+"\")'  type='button' value='toggle'/><input onclick='off(\""+element.id+"\")'  type='button' value='off'/><input onclick='on(\""+element.id+"\")' type='button' value='on'/></div></div>";
-				//alert(newEl);
-				$("#switches").append(newEl);
-}
-
-function addFutureTest(element){
-
-				var newEl="<div id='num"+element.id+"' class='element futureElement'>"
-				+"<h3>"+element.label+"</h3>"
-				+"<div class='switch' >"+element.value+"</div></div>";
-				$("#futureTest").append(newEl);
-}
-
-//In Case of New (type) ICON: Element parsen
-
- //   function updateHash(){
-    	//TODO: Hash berechnen. Wo einfügen?
- //   }
-
