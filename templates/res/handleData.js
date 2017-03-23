@@ -6,9 +6,12 @@
   {type: "socket", id: "05", label: "Schlafzimmer Bett", isOn: "off"},
   {type: "num", id: "01", label: "Nummerfeld 1", value: 5},
   {type: "num", id: "02", label: "Nummerfeld 2", value: 1},
-  {type: "test", id: "01", label: "Hello World", max: 100, value: 50},
-    {type: "test", id: "02", label: "Hello World", max: 75, value: 55},
-      {type: "test", id: "03", label: "Hello World", max: 200, value: 35}
+  {type: "test", id: "01", label: "Hello World", max: 100, value: 10},
+    {type: "test", id: "02", label: "Hello World", max: 100, value: 25},
+      {type: "test", id: "03", label: "Hello World", max: 100, value: 40},  
+      {type: "test", id: "01", label: "Hello World", max: 100, value: 55},
+    {type: "test", id: "02", label: "Hello World", max: 100, value: 70},
+      {type: "test", id: "03", label: "Hello World", max: 100, value: 95}
 ];
 
 $( document ).ready(function(){
@@ -72,10 +75,10 @@ function buildPagefromData(localStates){
 
             //alert(element.percentage);
             element.blue = Math.round(6*element.percentage/10);            
-            element.green = Math.round(8*element.percentage/10);
+            element.green = element.percentage;
             //alert(element.red.toString());
 
-            element.contentParsed = "<p style='float: right'>@1>max<1@</p><div style='height: 50px; width: @2>percentage<2@%; background: rgb(@3>red<3@%,@4>green<4@%, @5>blue<5@%); text-align: right'>@6>value<6@</div>";
+            element.contentParsed = "<p style='float: right'>@1>max<1@</p><div style='height: 25px; width: @2>percentage<2@%; background: rgb(@3>red<3@%,@4>green<4@%, @5>blue<5@%); text-align: left'>@6>value<6@</div>";
             break;
             default: break;
         }
