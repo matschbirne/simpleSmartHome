@@ -1,3 +1,15 @@
+//TODO: fixen: Doublechecking der footerFunctions funzt nicht mehr.
+
+	var activeFunction = "";
+	var footerFunctions = {
+	    reload: function(){
+	        alert("Ich lade nach...");
+	    },
+	    allOff: function(){
+	        alert("alle gehen schlafen...");
+	    }
+	};
+	
 	var testData2 = [{
 	    type: "socket",
 	    id: "01",
@@ -73,9 +85,35 @@
 
 	$(document).ready(function() {
 	    getDataAndBuild();
+	    $("footer li div").click(function(){
+	        //alert($(this).attr("id"));
+	        $("footer li div").removeClass("highlight");
+	        if($(this).attr("id")==activeFunction){
+	            if(activeFunction in footerFunctions){
+	                //alert("Funktion gefunden");
+	                footerFunctions[activeFunction]();
+	            }
+	            $("#"+activeFunction).removeClass("highlight");
+	            //alert("blaaaaa");
+	            activeFunction="";
+	            
+	        }
+	        else{
+	            $("#"+activeFunction).removeClass("highlight");
+	        $("#"+$(this).attr("id")).addClass("highlight");
+	       activeFunction = $(this).attr("id");     
+	        }
+	    })
 	    $("#footerTrigger").click(function() {
 	        $("#footerContent").toggleClass("present absent");
+	        $("footer li div").removeClass("highlight");
+	        activeFunction = "";
 	    });
+	    $("main").click(function(){
+	              $("#footerContent").removeClass("present");
+	                    $("#footerContent").addClass("absent");
+	                    activeFunction = "";
+	    })
 
 	});
 
@@ -256,5 +294,9 @@
 	            options.success(res);
 	        }, 300);
 	    }
+	}
+	
+	function doubleCheck(){
+	    alert("bla");
 	}
 	
