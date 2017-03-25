@@ -3,10 +3,10 @@
 	var activeFunction = "";
 	var footerFunctions = {
 	    reload: function(){
-	        alert("Ich lade nach...");
+	        console.log("Ich lade nach...");
 	    },
 	    allOff: function(){
-	        alert("alle gehen schlafen...");
+	        console.log("alle gehen schlafen...");
 	    }
 	};
 	
@@ -86,23 +86,25 @@
 	$(document).ready(function() {
 	    getDataAndBuild();
 	    $("footer li div").click(function(){
-	        //alert($(this).attr("id"));
-	        $("footer li div").removeClass("highlight");
-	        if($(this).attr("id")==activeFunction){
-	            if(activeFunction in footerFunctions){
-	                //alert("Funktion gefunden");
-	                footerFunctions[activeFunction]();
-	            }
-	            $("#"+activeFunction).removeClass("highlight");
-	            //alert("blaaaaa");
-	            activeFunction="";
+
+	        activateOrExecute($(this).attr("id"));
+
+	       //  $("footer li div").removeClass("highlight");
+	       //  if($(this).attr("id")==activeFunction){
+	       //      if(activeFunction in footerFunctions){
+	       //          //alert("Funktion gefunden");
+	       //          footerFunctions[activeFunction]();
+	       //      }
+	       //      $("#"+activeFunction).removeClass("highlight");
+	       //      //alert("blaaaaa");
+	       //      activeFunction="";
 	            
-	        }
-	        else{
-	            $("#"+activeFunction).removeClass("highlight");
-	        $("#"+$(this).attr("id")).addClass("highlight");
-	       activeFunction = $(this).attr("id");     
-	        }
+	       //  }
+	       //  else{
+	       //      $("#"+activeFunction).removeClass("highlight");
+	       //  $("#"+$(this).attr("id")).addClass("highlight");
+	       // activeFunction = $(this).attr("id");     
+	       //  }
 	    })
 	    $("#footerTrigger").click(function() {
 	        $("#footerContent").toggleClass("present absent");
@@ -118,18 +120,12 @@
 	});
 
 	//Turns Socket on
-	function on(id) {
-	    changeSocket(id, true);
-	}
+	function on(id) {  changeSocket(id, true);  }
 
 	//Turns sockets off
-	function off(id) {
-	    changeSocket(id, false);
-	}
+	function off(id) {  changeSocket(id, false);  }
 
-	function toggle(id) {
-	    changeSocket(id, $("#socket" + id).hasClass("off"));
-	}
+	function toggle(id) {  changeSocket(id, $("#socket" + id).hasClass("off")); }
 
 	function changeSocket(id, on) {
 	    fakeAjax({
@@ -257,13 +253,36 @@
 
 	}
 
+	function activateOrExecute(which){
+	    //alert(which);
+	    if (which == activeFunction) execute(which);
+	    else {activate(which);}
+
+	    $("footer li div").removeClass("highlight");
+	    if(activeFunction) $("#"+activeFunction).addClass("highlight");
+
+	    // if(which in footerFunctions){
+	    // 	footerFunctions[which]();
+	    // }
+	    // else{
+	    // 	console.log("No Function Found");
+	    // }
+	}
+
+	function execute(which){
+		if(which in footerFunctions) footerFunctions[which]();
+		activeFunction = "";
+	}
+
+	function activate(which){
+
+		activeFunction = which;
+	}
+
 	/*
 
 
-	        TODO: alle Aufrufe von fakeAjax durch richtige ersetzen, testen. Regelmäßige Abfrage über Hash. Eventuell eigenen Ajax-Request abstrahieren. Siehe obenn
-
-
-	*/
+	       TODO: alle Aufrufe von fakeAjax durch richtige ersetzen, testen. Regelmäßige Abfrage über Hash. Eventuell eigenen Ajax-Request abstrahieren. Siehe obenn */
 
 	function fakeAjax(options) {
 	    if (options.method == "GET" && options.url == "/states") {
@@ -296,7 +315,5 @@
 	    }
 	}
 	
-	function doubleCheck(){
-	    alert("bla");
-	}
+	
 	

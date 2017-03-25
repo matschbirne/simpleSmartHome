@@ -307,13 +307,13 @@ hr {
     content: "Reload";
   }
   #allOff::after {
-    content: "All Sockets Off";
+    content: "All off";
   }
   #foo1::after {
-    content: "Foooooooo";
+    content: "Fooo";
   }
   #foo2::after {
-    content: "Foooooooo";
+    content: "Foo";
   }
   footer ul li div::after {
     padding: 20px;
