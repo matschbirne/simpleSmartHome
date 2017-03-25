@@ -114,7 +114,8 @@ header {
 }
 
 .socketElement input {
-    padding: 7px;
+    margin: @gap-standard;
+    padding: @gap-standard;
     padding-left: @gap-wide;
     padding-right: @gap-wide;
     border: none;
@@ -249,8 +250,8 @@ hr {
     .col-12 {  width: 100%;  }            
     
     /* Veränderter Stil (responsive) der Sockets bei Laptop und Bildschirmen*/
-    .socketElement input {  display: none;  }  
-    .socketElement:hover input {  display: inline-block}     
+    .socketElement input {  visibility: hidden  }  
+    .socketElement:hover input {  visibility: visible}     
     //TODO Farben generalisieren
     .on:hover {
         border: @border-medium solid #006600;

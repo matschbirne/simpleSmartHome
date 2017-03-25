@@ -98,7 +98,8 @@ header h1 {
   padding: 10px;
 }
 .socketElement input {
-  padding: 7px;
+  margin: 5px;
+  padding: 5px;
   padding-left: 15px;
   padding-right: 15px;
   border: none;
@@ -288,10 +289,10 @@ hr {
   }
   /* Veränderter Stil (responsive) der Sockets bei Laptop und Bildschirmen*/
   .socketElement input {
-    display: none;
+    visibility: hidden;
   }
   .socketElement:hover input {
-    display: inline-block;
+    visibility: visible;
   }
   .on:hover {
     border: 2px solid #006600;
