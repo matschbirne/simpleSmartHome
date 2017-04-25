@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 import time
-import serialdriver_dummy as ser
+import serialdriver as ser
 import sys
 import json
 

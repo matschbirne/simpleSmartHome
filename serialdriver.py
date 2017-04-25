@@ -1,4 +1,8 @@
 import serial
+import sys
+from time import sleep
+
+#TODO: buffer fuer states
 
 NUM_CHANELS = 4
 
@@ -8,15 +12,16 @@ ser = serial.Serial(
    parity=serial.PARITY_NONE,
    stopbits=serial.STOPBITS_ONE,
    bytesize=serial.EIGHTBITS,
-   timeout=0.1
+   timeout=0.02
 )
 
 def serialrequest(cmd):
 	print "SERIAL REQUEST:",repr(cmd)
 	ser.write(cmd)
+	#sleep(0.01)
 	try:
 		read_value = ser.read(1)
-		print "Read:", str(read_value)
+		print "Read:",read_value
 		read_value = ord(read_value)
 		return read_value
 	except:
@@ -24,28 +29,36 @@ def serialrequest(cmd):
 		return -1
 
 # serial functions
-def turn_on(addr):
+def socket_on(addr):
 	cmd =[int(addr),1]
 	return serialrequest(cmd)
 	
-
-def turn_off(addr):
+def socket_off(addr):
 	cmd =[int(addr),0]
 	return serialrequest(cmd)
 
-def get_state(addr):
+def socket_get_state(addr):
 	cmd =[int(addr)]
 	return serialrequest(cmd)
 
-def get_all_states():
-	states = []
-	for i in range(NUM_CHANELS):
-		read_value = get_state(i)
-		#states.append(read_value)
-		if (read_value == 0):
-			states.append(0)
-		elif (read_value == 1):
-			states.append(1)
-		else:
-			states.append(-1)
-	return states
+def socket_toggle(addr):
+	if (socket_get_state(addr) == 0):
+		return socket_on(addr)
+	else:
+		return socket_off(addr)
+
+if __name__ == "__main__":
+	action = sys.argv[1]
+	addr = sys.argv[2]
+	res = "unknown action"
+
+	if action == "on":
+		res = socket_on(addr)
+	elif action == "off":
+		res = socket_off(addr)
+	elif action == "toggle":
+		res = socket_toggle(addr)
+	elif action == "get":
+		res = socket_get_state(addr)
+	
+	print "Result: ",res
