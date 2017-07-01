@@ -12,73 +12,68 @@
 	
 	var testData2 = [{
 	    type: "socket",
-	    id: "01",
-	    label: "Bad Spiegel",
-	    isOn: "on"
+	    addr: "0",
+	    name: "Wohnzimmer Tür",
+	    state: 0
+	},{
+	    type: "socket",
+	    addr: "1",
+	    name: "Bad Spiegel",
+	    state: 1	
+      }, {
+	    type: "socket",
+	    addr: "2",
+	    name: "Bad Boden",
+	    state: 0
 	}, {
 	    type: "socket",
-	    id: "02",
-	    label: "Bad Boden",
-	    isOn: "off"
-	}, {
-	    type: "socket",
-	    id: "03",
-	    label: "Wohnzimmer Couch",
-	    isOn: "on"
-	}, {
-	    type: "socket",
-	    id: "04",
-	    label: "Wohnzimmer Tür",
-	    isOn: "off"
-	}, {
-	    type: "socket",
-	    id: "05",
-	    label: "Schlafzimmer Bett",
-	    isOn: "off"
-	}, {
+	    addr: "3",
+	    name: "Wohnzimmer Couch",
+	    state: 1
+  },  {
 	    type: "num",
-	    id: "01",
+	    addr: "1",
 	    label: "Nummerfeld 1",
 	    value: 5
 	}, {
 	    type: "num",
-	    id: "02",
+	    addr: "2",
 	    label: "Nummerfeld 2",
 	    value: 1
 	}, {
 	    type: "test",
-	    id: "01",
+	    addr: "1",
 	    label: "Hello World",
 	    max: 100,
 	    value: 10
 	}, {
 	    type: "test",
-	    id: "02",
+	    addr: "2",
 	    label: "Hello World",
 	    max: 100,
 	    value: 25
 	}, {
 	    type: "test",
-	    id: "03",
-	    label: "Hello World",
+	    addr: "03",
+	    name: "Hello World",
 	    max: 100,
 	    value: 40
 	}, {
 	    type: "test",
-	    id: "01",
-	    label: "Hello World",
+	    addr: "01",
+	    name: "Hello World",
 	    max: 100,
 	    value: 55
 	}, {
 	    type: "test",
-	    id: "02",
-	    label: "Hello World",
+	    addr: "02",
+	    name: "Hello World",
 	    max: 100,
 	    value: 70
 	}, {
 	    type: "test",
-	    id: "03",
-	    label: "Hello World",
+	    addr: "03",
+	    name: "Hello World",
 	    max: 100,
 	    value: 95
 	}];
@@ -129,15 +124,15 @@
 
 	function changeSocket(id, on) {
 	    fakeAjax({
-	        url: "/socket/" + id + "/" + ((on) ? "on" : "off"),
+	        url: "/socket/socket" + id + "/" + ((on) ? "on" : "off"),
 	        method: "GET",
 	        success: function(result) {
 	            //TODO Eventuell: JSON parsen oder auto detection?
 	            console.log(result.url);
 	            if (result.type == "socket") {
-	                var newState = (result.isOn) ? "on" : "off";
-	                var notNewState = (result.isOn) ? "off" : "on";
-	                $("#socket" + result.id).addClass(newState).removeClass(notNewState);
+	                var newState = (result.state) ? "on" : "off";
+	                var notNewState = (result.state) ? "off" : "on";
+	                $("#socket" + result.addr).addClass(newState).removeClass(notNewState);
 
 	            }
 	        }
@@ -164,9 +159,9 @@
 	        switch (element.type) {
 	            case "socket":
 	                element.contentBefore = "<h1 class='onLabel'>On</h1><h1 class='offLabel'>Off</h1>";
-	                element.controlsParsed = "<input onclick='toggle(\"@1>id<1@\")'  type='button' value='toggle'/>" +
-	                    "<input onclick='off(\"@2>id<2@\")'  type='button' value='off'/>" +
-	                    "<input onclick='on(\"@3>id<3@\")' type='button' value='on'/>";
+	                element.controlsParsed = "<input onclick='toggle(\"@1>addr<1@\")'  type='button' value='toggle'/>" +
+	                    "<input onclick='off(\"@2>addr<2@\")'  type='button' value='off'/>" +
+	                    "<input onclick='on(\"@3>addr<3@\")' type='button' value='on'/>";
 	                break;
 	            case "num":
 	                element.contentParsed = "This is my @1>value<1@. Sparta!";
@@ -213,11 +208,11 @@
 	            }
 	*/
 	function addElement(type, element) {
-	    var newEl = "<div id='" + type + element.id + "' class='element " + type + "Element " +
-	        optional(element.isOn) + "'>\n";
+	    var newEl = "<div id='" + type + element.addr + "' class='element " + type + "Element " +
+	        (element.type == "socket")? (element.state?"off":"on") : "" + "'>\n";
 
 	    newEl += optional(element.contentBefore);
-	    newEl += "\t<h3>" + element.label + "</h3>\n";
+	    newEl += "\t<h3>" + element.name + "</h3>\n";
 	    newEl += "\t<div class='" + type + "Content'>\n\t" + parseElement(element, optional(element.contentParsed)) + "</div>\n";
 	    newEl += "\t<div class='" + type + "Controls'>\n\t" + parseElement(element, optional(element.controlsParsed)) + "</div>\n";
 	    newEl += "</div>";
@@ -291,7 +286,7 @@
 	        }, 500);
 	    }
 
-	    if (options.method == "GET" && options.url.includes("/socket")) {
+	    if (options.method == "GET" && options.url.includes("/socket/")) {
 	        setTimeout(function() {
 	            // alert("hi");
 	            var opt = options.url.split("/");
