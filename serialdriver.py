@@ -12,16 +12,16 @@ ser = serial.Serial(
    parity=serial.PARITY_NONE,
    stopbits=serial.STOPBITS_ONE,
    bytesize=serial.EIGHTBITS,
-   timeout=0.02
+   timeout=0.1
 )
 
 def serialrequest(cmd):
 	print "SERIAL REQUEST:",repr(cmd)
 	ser.write(cmd)
-	#sleep(0.01)
+	sleep(0.01)
 	try:
 		read_value = ser.read(1)
-		print "Read:",read_value
+		print "Read: ",read_value
 		read_value = ord(read_value)
 		return read_value
 	except:

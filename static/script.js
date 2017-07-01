@@ -38,30 +38,13 @@ function getstates() {
 
         var i;
         for (i = 0; i < sortedKeys.length; i++) {
-          if (result[sortedKeys[i]] == "1") {
+          if (result[sortedKeys[i]] == 1) {
             document.getElementById("statustext_" + sortedKeys[i]).innerHTML = "<strong><font color=\"green\">AN</font></strong>"
             document.getElementById("togglebutton_" + sortedKeys[i]).value = "ausschalten"
           } else {
             document.getElementById("statustext_" + sortedKeys[i]).innerHTML = "<strong><font color=\"red\">AUS</font></strong>";
             document.getElementById("togglebutton_" + sortedKeys[i]).value = "einschalten"
           }
-        }
-      
-      }
-    });
-}
-
-function getinfo() {
-    var request = $.ajax({
-      url: "/info",
-      success: function( result ) {
-        console.log(result);
-
-        var sortedKeys = Object.keys(result).sort();
-
-        var i;
-        for (i = 0; i < sortedKeys.length; i++) {
-            document.getElementById("name_" + sortedKeys[i]).innerHTML = result[sortedKeys[i]].name;
         }
       
       }

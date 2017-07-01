@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 import time
-import serialdriver as ser
+import serialdriver_dummy as ser
 import sys
 import json
 
@@ -22,13 +22,13 @@ def action(type,id,action):
 	result["id"] = str(id)
 	if type == "socket":
 		if action == "on":
-			result["state"] = str(ser.socket_on(config[str(id)]["addr"]))
+			result["state"] = ser.socket_on(config[str(id)]["addr"])
 		elif action == "off":
-			result["state"] = str(ser.socket_off(config[str(id)]["addr"]))
+			result["state"] = ser.socket_off(config[str(id)]["addr"])
 		elif action == "toggle":
-			result["state"] = str(ser.socket_toggle(config[str(id)]["addr"]))
+			result["state"] = ser.socket_toggle(config[str(id)]["addr"])
 		elif action == "get":
-			result["state"] = str(ser.socket_get_state(config[str(id)]["addr"]))
+			result["state"] = ser.socket_get_state(config[str(id)]["addr"])
 		else: # unknown action
 			result["is_success"] = "false"
 	else: # unknown type
@@ -41,15 +41,16 @@ def states():
 	states = {} # system state
 	
 	for id in config:
-		states[str(id)] = str(ser.socket_get_state(config[id]["addr"]))
+		states[str(id)] = ser.socket_get_state(config[id]["addr"])
 		
 	return jsonify(states)
 
 @app.route("/info")
 def info():
+	for id in config:
+		config[id]["state"] = ser.socket_get_state(config[id]["addr"])
+		
 	return jsonify(config)
-
-
 
 if __name__ == "__main__":
 	app.run(debug=True, host='0.0.0.0',port=80)
