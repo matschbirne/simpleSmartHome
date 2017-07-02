@@ -18,7 +18,7 @@ def index():
 @app.route("/<type>/<id>/<action>")
 def action(type,id,action):
 	result = {}
-	result["is_success"] = "true"
+	result["is_success"] = 1
 	result["id"] = str(id)
 	if type == "socket":
 		if action == "on":
@@ -30,10 +30,11 @@ def action(type,id,action):
 		elif action == "get":
 			result["state"] = ser.socket_get_state(config[str(id)]["addr"])
 		else: # unknown action
-			result["is_success"] = "false"
+			result["is_success"] = 0
 	else: # unknown type
-		result["is_success"] = "false"
+		result["is_success"] = 0
 	return jsonify(result)
+	
 
 
 @app.route("/states")

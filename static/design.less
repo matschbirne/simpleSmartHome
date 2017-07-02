@@ -1,0 +1,288 @@
+@width-smartphonePortrait: 500px;
+@width-smartphoneLandscape: (@width-smartphonePortrait + 1);
+@width-laptop: 680px;
+@width-desktop: 1500px;
+
+@c-main-light: khaki;
+@c-main-dark: darkorange;
+
+@gap-standard: 5px;
+@gap-medium: 10px;
+@gap-wide: 15px;
+
+@border-thin: 1px;
+@border-medium: 2px;
+@border-thick: 5px;
+
+@element-max-width: 650px;
+@element-min-height: 60px;
+
+@title-size: 25px;
+@icon-size: 40px;
+
+body {
+    font-family: sans-serif;
+    box-sizing: border-box; }
+/*Statt Universalselektor (*), der angeblich langsam ist. Ist dieser Workaround sinnvoll oder gar noch lansamer?*/
+body, header, footer, main, h1, h3, .element, div, ul, li {
+    padding: 0;
+    margin: 0;
+}
+
+/*    ?Footer     */
+footer {
+    position: fixed;
+    bottom: 0;
+    display: block;
+    width: 100vw;
+    #footerTrigger {
+        display: inline-block;
+        background: @c-main-dark;
+        border-top-left-radius: @gap-standard;
+        border-top-right-radius: @gap-standard;
+        margin-left: @gap-standard;
+        padding: @gap-standard;
+        padding-left: @gap-wide;
+        padding-right: @gap-wide;
+        font-size: @gap-wide
+    }
+    .present {
+        display: block;
+    }
+    .absent {
+        display: none;
+    }
+    ul li {
+        list-style: none;
+        text-align: center;
+        background: @c-main-dark;
+        div {
+            border:@border-thin solid @c-main-light;
+            border-radius: @gap-standard;
+            display: inline-block;
+            margin: @gap-standard;
+        }
+        div:hover {
+            background: @c-main-light;
+        }
+    }
+    .icon {
+        width: @icon-size;
+        height: @icon-size;
+        border-radius: @gap-standard;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .highlight {
+        background: @c-main-light;
+    }
+    .active {
+        background: green;
+    }
+}
+
+/*    ?Header     */
+header {
+    background: @c-main-light;
+    margin-left: @gap-standard;
+    margin-right: @gap-standard;
+    margin-bottom: @gap-wide;
+    border-bottom-right-radius: @gap-wide;
+    border-bottom-left-radius: @gap-wide;
+    border-bottom: @border-thick solid @c-main-dark;
+    border-left: @border-thick solid @c-main-dark;
+    border-right: @border-thick solid @c-main-dark;
+    h1 {
+        padding: @gap-standard;
+        text-align: center;
+        color: @c-main-dark;
+        letter-spacing: 2vw;
+        font-size: @title-size;
+    }
+}
+
+/*    ?Element    */
+.element {
+    border:@border-thin solid @c-main-dark;
+    background: @c-main-light;
+    border-radius: @gap-standard;
+    position: relative;
+    max-width: @element-max-width;
+    min-height: @element-min-height;
+    margin:@gap-standard;
+    padding: @gap-medium;
+}
+
+.socketElement input {
+    margin: @gap-standard;
+    padding: @gap-standard;
+    padding-left: @gap-wide;
+    padding-right: @gap-wide;
+    border: none;
+    border-radius:@gap-standard;
+    /*opacity: 0.5;*/
+    color: white;
+}
+
+.socketElement input ~ input {
+    margin-left:@gap-standard;
+}
+
+.socketElement input[value="on"] {
+    background: green;
+}
+
+.socketElement input[value="off"] {
+    background: red;
+}
+
+.socketElement input[value="toggle"] {
+    background: @c-main-dark;
+}
+
+.on {
+    border: @border-medium solid #00cc00;
+    background: #88ff88;
+}
+
+.off {
+    border: @border-medium solid #ee0000;
+    background: #ff8888;
+}
+
+.offLabel,
+.onLabel {
+    font-size: 2.5em;
+    line-height: 1em;
+    letter-spacing:@gap-standard;
+    position: absolute;
+    bottom:@gap-standard;
+    right:@gap-standard;
+    opacity: 0.3;
+}
+
+.offLabel {
+    color: red;
+}
+
+.onLabel {
+    color: green;
+}
+
+.on .onLabel,
+.off .offLabel {
+    display: inline-block;
+}
+
+.off .onLabel,
+.on .offLabel {
+    display: none;
+}
+
+.socketControls {
+    position: relative;
+}
+
+hr {
+    background: @c-main-dark;
+    color: @c-main-dark;
+    height: 4px;
+    margin: @gap-wide;
+}
+
+/*Damit das Spalten-Layout mit den % funktioniert*/
+
+.row::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+[class*="col-"] {
+    width: 100%;
+    float: left;
+    display: inline-block;
+}
+
+/*SMARTPHONE HOCH*/
+@media only screen and (max-width: @width-smartphonePortrait) {
+    .col-s-1 {  width: 8.33%;  }
+    .col-s-2 {  width: 16.66%;  }
+    .col-s-3 {  width: 25%;  }
+    .col-s-4 {  width: 33.33%;  }
+    .col-s-5 {  width: 41.66%;  }
+    .col-s-6 {  width: 50%;  }
+    .col-s-7 {  width: 58.33%;  }
+    .col-s-8 {  width: 66.66%;  }
+    .col-s-9 {  width: 75%;  }
+    .col-s-10 {  width: 83.33%;  }
+    .col-s-11 {  width: 91.66%;  }
+    .col-s-12 {  width: 100%;  }            }
+
+/*SMARTPHONE QUER*/
+@media only screen and (min-width: @width-smartphoneLandscape) {
+    .col-m-1 {  width: 8.33%;  }
+    .col-m-2 {  width: 16.66%;  }
+    .col-m-3 {  width: 25%;  }
+    .col-m-4 {  width: 33.33%;  }
+    .col-m-5 {  width: 41.66%;  }
+    .col-m-6 {  width: 50%;  }
+    .col-m-7 {  width: 58.33%;  }
+    .col-m-8 {  width: 66.66%;  }
+    .col-m-9 {  width: 75%;  }
+    .col-m-10 {  width: 83.33%;  }
+    .col-m-11 {  width: 91.66%;  }
+    .col-m-12 {  width: 100%;  }            }
+
+/* LAPTOP MITTELGROß */
+@media only screen and (min-width: @width-laptop) {
+    .col-1 {  width: 8.33%;  }
+    .col-2 {  width: 16.66%;  }
+    .col-3 {  width: 25%;  }
+    .col-4 {  width: 33.33%;  }
+    .col-5 {  width: 41.66%;  }
+    .col-6 {  width: 50%;  }
+    .col-7 {  width: 58.33%;  }
+    .col-8 {  width: 66.66%;  }
+    .col-9 {  width: 75%;  }
+    .col-10 {  width: 83.33%;  }
+    .col-11 {  width: 91.66%;  }
+    .col-12 {  width: 100%;  }            
+    
+    /* Veränderter Stil (responsive) der Sockets bei Laptop und Bildschirmen*/
+    .socketElement input {  visibility: hidden  }  
+    .socketElement:hover input {  visibility: visible}     
+    //TODO Farben generalisieren
+    .on:hover {
+        border: @border-medium solid #006600;
+        background: #22bb22;
+    }
+    .off:hover {
+        border: @border-medium solid #cc0000;
+        background: #ff4444;
+    }
+    /* Have A New Function HANF Todo Label hier einfügen.*/
+    #reload::after{ content: "Reload"; }
+    #allOff::after{ content: "All Sockets Off"; }
+    #foo1::after  { content: "Foooooooo";  }
+    #foo2::after  { content: "Foooooooo";  }
+    footer ul li div::after { padding: 20px;}
+    
+    hr {  display: none;  }
+}
+
+/*BILDSCHIRM GROß*/
+@media only screen and (min-width: @width-desktop) {
+    .col-l-1 {  width: 8.33%;  }
+    .col-l-2 {  width: 16.66%;  }
+    .col-l-3 {  width: 25%;  }
+    .col-l-4 {  width: 33.33%;  }
+    .col-l-5 {  width: 41.66%;  }
+    .col-l-6 {  width: 50%;  }
+    .col-l-7 {  width: 58.33%;  }
+    .col-l-8 {  width: 66.66%;  }
+    .col-l-9 {  width: 75%;  }
+    .col-l-10{  width: 83.33%;  }
+    .col-l-11{  width: 91.66%;  }
+    .col-l-12{  width: 100%;  }            
+}   
