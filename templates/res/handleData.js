@@ -3,6 +3,7 @@
 	var activeFunction = "";
 	var footerFunctions = {
 	    reload: function(){
+	    	alert("blob");
 	        console.log("Ich lade nach...");
 	    },
 	    allOff: function(){
@@ -258,7 +259,7 @@
 	    if (which == activeFunction) execute(which);
 	    else {activate(which);}
 
-	    $("footer li div").removeClass("highlight");
+	    $("#footerContent li div").removeClass("highlight");
 	    if(activeFunction) $("#"+activeFunction).addClass("highlight");
 
 	    // if(which in footerFunctions){
@@ -272,6 +273,9 @@
 	function execute(which){
 		if(which in footerFunctions) footerFunctions[which]();
 		activeFunction = "";
+		$("#"+which).addClass("active");
+		//Todo: Hover aufheben oder dort farbe wegnehmen?
+		setTimeout(function(){$("#"+which).removeClass("active");}, 500);
 	}
 
 	function activate(which){
