@@ -3,6 +3,7 @@ import time
 import serialdriver_dummy as ser
 import sys
 import json
+import random
 
 app = Flask(__name__)
 configfilename = sys.argv[1]

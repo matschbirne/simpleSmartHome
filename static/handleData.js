@@ -87,9 +87,13 @@
 	    jQuery.ajax({
 	        url: "/info",
 	        method: "GET",
+			timeout: 1000,
 	        success: function(result) {
 	            buildPagefromData(result);
-	        }
+	        },
+			error: function() {
+				$("#loading").text("Verbindung fehlgeschlagen. Bitte neu laden")
+			}
 	    })
 	}
 	//In Case of New (type) ICON: neuen Case hinzufügen  

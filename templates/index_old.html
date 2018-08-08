@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jonnys SmartHome </title>
+  <meta name="author" content="Jonny und Jonny">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+  <meta charset="utf8" />
+    <link rel="stylesheet" href='static/design.css' />
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+ 
+</head>
+<body>
+  <div class="row">
+  <header>
+    <h1>SmartHome</h1>
+  </header>
+</div>
+<div class="row">
+  <main>
+    <!-- Hier vielleicht tolle Ladeanimation? -->
+    <div id="loading">Lade</div>
+    <!-- In Case of New (type) ICON: Spalte einfügen. Eventuell andere anpassen-->
+<div style="display:none;" id="sockets" class="col-s-12 col-m-6 col-4 col-l-3">
+  <h3>Steckdosen</h3>
+</div>
+
+
+
+    <div style="clear:left"><br><br><br><br></div>
+</main></div>
+
+
+<div class="row">
+<footer>
+    <div id="footerTrigger" >Funktionen</div>
+    <div id="footerContent" class="absent">
+    <ul>
+      <!-- Idee für Funktion: mehrere Schalter auf einmal betätigen, dann erst senden? Sinnlos, weil es eh fast in Echtzeit geht? Eventuell sinnvoll, wenn Änderungen wirklich gleichzeitig geschehen soll? Oder soll grundsätzlich sowieso immer nur ein Element geändert werden können? Dann Benutzung von JSOn als Tauschformat überflüssig und lieber über verschiedene URLS steuern?-->
+      <!-- Have A New Function HANF Todo neues Element einfügen, Gruppen anpassen -->
+      <li class="col-s-3 col-m-3"><div id="reload" ><img class="icon" src="static/01.png" /></div></li>
+      <li class="col-s-3 col-m-3"><div id="allOff"><img class="icon" src="static/02.png" /></div></li>
+      <li class="col-s-3 col-m-3"> <div id="foo1" ><img class="icon" src="static/03.png" /></div></li>
+      <li class="col-s-3 col-m-3"><div id="foo2" ><img class="icon" src="static/04.png" /></div></li>
+    </ul>
+  </div>
+  </footer></div>
+  
+  <script src="static/handleData.js"></script>
+</body>
+</html>
+

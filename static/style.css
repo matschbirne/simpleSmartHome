@@ -1,0 +1,36 @@
+div, h1, h3, p{
+	padding: 0;
+	margin: 0;
+}
+
+.socketControls input{
+	padding: 5px;
+}
+
+.socket{
+	float: left;
+}
+
+#sockets p{
+	clear: left;
+}
+
+.socketWrapper{
+	padding: 10px;
+	margin: 5px;
+	border: 1px solid black;
+	
+}
+
+.socketOn::before{
+	content: "On";
+}
+
+.socketOff::before{
+	content: "Off";
+}
+
+[v-cloak] {
+  display: none;
+}
+
